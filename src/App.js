@@ -1,41 +1,58 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux'
+import Counter from './components/counter'
+import { TodoList, TodoItem } from './components/todo'
+import { fetchTodos,createTodo,updateTodo,deleteTodo } from './actions/todoAction'
+import axios from 'axios'
 
-class Counter extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { count: 0 }
-    this.handleAddCounter = this.handleAddCounter.bind(this)
-    this.handleMinusCounter = this.handleMinusCounter.bind(this)
+const mapStateToProps = state => {
+  return {
+    todos: state.todo
   }
+}
 
-  handleAddCounter = (event) => {
-    this.setState(prevState => { return prevState.count++ })
-  }
-  handleMinusCounter = (event) => {
-    this.setState(prevState => { return prevState.count-- })
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <h1>{this.state.count}</h1>
-        <button onClick={this.handleMinusCounter}>-</button>
-        <button onClick={this.handleAddCounter}>+</button>
-      </React.Fragment>
-    )
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchTodo: () => {
+      dispatch(fetchTodos())
+    },
+    onCreateTodo: (todo) => {
+      dispatch(createTodo(todo))
+    },
+    onUpdateTodo: (todo) => {
+      dispatch(updateTodo(todo))
+    },
+    onDeleteTodo: (uid) => {
+      dispatch(deleteTodo(uid))
+    }
   }
 }
 
 class App extends Component {
+  // componentDidMount() {
+  //   axios.get('localhost:5000/todos') // Get user details
+  //     .then(response => {
+  //       // const todoItems = response;
+  //       console.log('todoItems: '+response)
+  //   }).catch(err => { console.log('catch err: '+err) })
+  // }
+
   render() {
+    const { todos, onFetchTodo, onCreateTodo, onUpdateTodo, onDeleteTodo } = this.props;
+    console.log('fetched todos: '+todos)
     return (
       <div className="App">
-        <Counter />
+        {/* <Counter /> */}
+        <button onClick={onFetchTodo}>fetch todos</button>
+        <TodoList todos={ todos } onFetchTodo={onFetchTodo} />
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
