@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React  from 'react';
 import './App.css';
 import { connect } from 'react-redux'
-import Counter from './components/counter'
-import { TodoList, TodoItem } from './components/todo'
-import { fetchTodos,createTodo,updateTodo,deleteTodo } from './actions/todoAction'
-import axios from 'axios'
+import { AddForm } from './components/createTodoForm'
+import { TodoList } from './components/todo'
+import { fetchTodo } from './actions/todoAction'
+import styled from 'styled-components'
 
 const mapStateToProps = state => {
   return {
@@ -16,43 +15,35 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onFetchTodo: () => {
-      dispatch(fetchTodos())
-    },
-    onCreateTodo: (todo) => {
-      dispatch(createTodo(todo))
-    },
-    onUpdateTodo: (todo) => {
-      dispatch(updateTodo(todo))
-    },
-    onDeleteTodo: (uid) => {
-      dispatch(deleteTodo(uid))
+      dispatch(fetchTodo())
     }
   }
 }
 
-class App extends Component {
-  // componentDidMount() {
-  //   axios.get('localhost:5000/todos') // Get user details
-  //     .then(response => {
-  //       // const todoItems = response;
-  //       console.log('todoItems: '+response)
-  //   }).catch(err => { console.log('catch err: '+err) })
-  // }
+const TodoForm = styled.div`
+  margin: 50px
+  // background-color: lightgray
+`
+
+class App extends React.Component {
+  componentDidMount() {
+    // console.log('componentDidMount()')
+    this.props.onFetchTodo()
+  }
 
   render() {
-    const { todos, onFetchTodo, onCreateTodo, onUpdateTodo, onDeleteTodo } = this.props;
-    console.log('fetched todos: '+todos)
+    const { todos } = this.props;
+    // console.log('render app: '+todos)
     return (
-      <div className="App">
+      <TodoForm className="App">
         {/* <Counter /> */}
-        <button onClick={onFetchTodo}>fetch todos</button>
-        <TodoList todos={ todos } onFetchTodo={onFetchTodo} />
-      </div>
+        {/* <button onClick={ onFetchTodo }>fetch todos ({todos.length})</button> <br /> */}
+        {/* <button onClick={ () => onCreateTodo({title: 'abc',done: false}) }>new todo</button> <br /> */}
+        <AddForm />
+        <TodoList todos={ todos } /> <br />
+      </TodoForm>
     );
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

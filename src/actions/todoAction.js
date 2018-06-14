@@ -1,4 +1,4 @@
-const fetchTodos = () => ({
+const fetchTodo = () => ({
     type: 'FETCH_ALL_TODOS'
 })
 
@@ -17,4 +17,4 @@ const deleteTodo = (uid) => ({
     uid: uid
 })
 
-export { fetchTodos,createTodo,updateTodo,deleteTodo }
+export { fetchTodo,createTodo,updateTodo,deleteTodo }

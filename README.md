@@ -388,7 +388,7 @@ For example:
 ### `Button.js`
 
 ```js
-import React, { Component } from 'react';
+import React  from 'react';
 
 class Button extends Component {
   render() {
@@ -403,7 +403,7 @@ export default Button; // Don’t forget to use export default!
 
 
 ```js
-import React, { Component } from 'react';
+import React  from 'react';
 import Button from './Button'; // Import a component from another file
 
 class DangerButton extends Component {
@@ -445,7 +445,7 @@ export { moduleA };
 ### `App.js`
 
 ```js
-import React, { Component } from 'react';
+import React  from 'react';
 
 class App extends Component {
   handleClick = () => {
@@ -495,7 +495,7 @@ This project setup uses [Webpack](https://webpack.js.org/) for handling all asse
 ### `Button.js`
 
 ```js
-import React, { Component } from 'react';
+import React  from 'react';
 import './Button.css'; // Tell Webpack that Button.js uses these styles
 
 class Button extends Component {
@@ -1430,7 +1430,7 @@ import 'jest-enzyme';
 
 ### Using Third Party Assertion Libraries
 
-We recommend that you use `expect()` for assertions and `jest.fn()` for spies. If you are having issues with them please [file those against Jest](https://github.com/facebook/jest/issues/new), and we’ll fix them. We intend to keep making them better for React, supporting, for example, [pretty-printing React elements as JSX](https://github.com/facebook/jest/pull/1566).
+We recommend that you use `expect()` for assertions and `jest.fn()` for spies. If you are having issues with them please [file those against Jest](https://github.com/facebook/jest/issues/new), and we’ll fix them. We intend to keep making them better for React supporting, for example, [pretty-printing React elements as JSX](https://github.com/facebook/jest/pull/1566).
 
 However, if you are used to other libraries, such as [Chai](http://chaijs.com/) and [Sinon](http://sinonjs.org/), or if you have existing code using them that you’d like to port over, you can import them normally like this:
 

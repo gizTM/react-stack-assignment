@@ -2,37 +2,51 @@ import axios from 'axios'
 
 const fetch = (path, data) => {
   return new Promise((resolve, reject) => {
-    axios.get(path,data)
-      .then(res => {
-        console.log(res.data)
-        resolve(res.data);
+    axios.get(path, data)
+      .then(resp => {
+        resolve(resp.data);
       })
-      .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
+      .catch(error => {
+        reject(error);
+      });
   })
 }
 
 const create = (path, data) => {
-  // return new Promise((resolve, reject) => {
-  //   axios.get(path, data)
-  //     .then(resp => {
-  //       resolve(resp.data);
-  //     })
-  //     .catch(error => {
-  //       reject(error);
-  //       console.log('error in fetch: '+error)
-  //     });
-  // })
+  return new Promise((resolve, reject) => {
+    axios.post(path, data)
+      .then(resp => {
+        resolve(resp.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  })
 }
 
 const update = (path, data) => {
-
+  return new Promise((resolve, reject) => {
+    axios.put(path, data)
+      .then(resp => {
+        resolve(resp.data);
+      })
+      .catch(error => {
+        console.log('ws update error: '+ error)
+        reject(error);
+      });
+  })
 }
 
 const del = (path, data) => {
-
+  return new Promise((resolve, reject) => {
+    axios.delete(path, data)
+      .then(resp => {
+        resolve(resp.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  })
 }
 
-export { fetch, create, update, del }
+export { fetch,create,update,del }
